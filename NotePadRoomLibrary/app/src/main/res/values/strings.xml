@@ -1,0 +1,85 @@
+<resources>
+    <string name="app_name">NotePadRoomLibrary</string>
+    <string name="text_button">Добавить заметку</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+    <!-- list_item -->
+    <string name="title_text">Заголовок</string>
+    <string name="content_text">Содержание</string>
+    <string name="time_text">21:00 – 22:00</string>
+    <string name="date_text">21/02/2022</string>
+    <string name="delete_note">Удалить</string>
+
+    <!-- main_activity -->
+    <string name="bt_text_addNote">Добавить заметку</string>
+    <string name="bt_text_addDate">Задать дату</string>
+    <string name="bt_text_addDate_change">%d/%d/%d</string>
+    <string name="title_activity_modify">modify_activity</string>
+    <string name="text_all">все</string>
+
+    <!-- Strings used for fragments for navigation -->
+    <string name="bt_text_addDate_modify">Выбрать дату заметки</string>
+    <string name="bt_text_addTime_modify">Выбрать время заметки</string>
+
+    <!-- time_picker_dialog -->
+    <string name="tvTimeDialog_text">Выбрите время заметки</string>
+    <string name="text_selection_time"> c %d:00 до %d:00 </string>
+
+    <string name="text_selection_time_0"> c 00:00 до 01:00 </string>
+    <string name="text_selection_time_1"> с 01:00 до 02:00</string>
+    <string name="text_selection_time_2"> с 02:00 до 03:00</string>
+    <string name="text_selection_time_3"> с 03:00 до 04:00</string>
+    <string name="text_selection_time_4"> с 04:00 до 05:00</string>
+    <string name="text_selection_time_5"> с 05:00 до 06:00</string>
+    <string name="text_selection_time_6"> с 06:00 до 07:00</string>
+    <string name="text_selection_time_7"> с 07:00 до 08:00</string>
+    <string name="text_selection_time_8"> с 08:00 до 09:00</string>
+    <string name="text_selection_time_10"> с 09:00 до 10:00</string>
+    <string name="text_selection_time_11"> с 10:00 до 11:00</string>
+    <string name="text_selection_time_12"> с 11:00 до 12:00</string>
+    <string name="text_selection_time_13"> с 12:00 до 13:00</string>
+    <string name="text_selection_time_14"> с 13:00 до 14:00</string>
+    <string name="text_selection_time_15"> с 14:00 до 15:00</string>
+    <string name="text_selection_time_16"> с 15:00 до 16:00</string>
+    <string name="text_selection_time_17"> с 16:00 до 17:00</string>
+    <string name="text_selection_time_18"> с 17:00 до 18:00</string>
+    <string name="text_selection_time_19"> с 18:00 до 19:00</string>
+    <string name="text_selection_time_20"> с 19:00 до 20:00</string>
+    <string name="text_selection_time_21"> с 20:00 до 21:00</string>
+    <string name="text_selection_time_22"> с 21:00 до 22:00</string>
+    <string name="text_selection_time_23"> с 22:00 до 23:00</string>
+    <string name="text_selection_time_24"> с 23:00 до 24:00</string>
+
+    <string-array name="text_selection_times">
+        <item name="selection_time_0"> c 00:00 до 01:00 </item>
+        <item name="selection_time_1"> с 01:00 до 02:00</item>
+        <item name="selection_time_2"> с 02:00 до 03:00</item>
+        <item name="selection_time_3"> с 03:00 до 04:00</item>
+        <item name="selection_time_4"> с 04:00 до 05:00</item>
+        <item name="selection_time_5"> с 05:00 до 06:00</item>
+        <item name="selection_time_6"> с 06:00 до 07:00</item>
+        <item name="selection_time_7"> с 07:00 до 08:00</item>
+        <item name="selection_time_8"> с 08:00 до 09:00</item>
+        <item name="selection_time_10"> с 09:00 до 10:00</item>
+        <item name="selection_time_11"> с 10:00 до 11:00</item>
+        <item name="selection_time_12"> с 11:00 до 12:00</item>
+        <item name="selection_time_13"> с 12:00 до 13:00</item>
+        <item name="selection_time_14"> с 13:00 до 14:00</item>
+        <item name="selection_time_15"> с 14:00 до 15:00</item>
+        <item name="selection_time_16"> с 15:00 до 16:00</item>
+        <item name="selection_time_17"> с 16:00 до 17:00</item>
+        <item name="selection_time_18"> с 17:00 до 18:00</item>
+        <item name="selection_time_19"> с 18:00 до 19:00</item>
+        <item name="selection_time_20"> с 19:00 до 20:00</item>
+        <item name="selection_time_21"> с 20:00 до 21:00</item>
+        <item name="selection_time_22"> с 21:00 до 22:00</item>
+        <item name="selection_time_23"> с 22:00 до 23:00</item>
+        <item name="selection_time_24"> с 23:00 до 24:00</item>
+    </string-array>
+
+    <!-- MainAdapter -->
+    <string name="text_time_adapter">%d:00 - %d:00 </string>
+
+</resources>
