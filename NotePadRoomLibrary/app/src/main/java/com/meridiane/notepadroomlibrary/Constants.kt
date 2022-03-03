@@ -12,4 +12,7 @@ object Constants {
     const val DATE_KEY = "date_key"
     const val TIME_KEY = "time_key"
     const val ID_KEY = "id_key"
+
+    //ActivityMain
+    const val DATE_STRING = "date_string"
 }

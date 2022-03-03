@@ -26,21 +26,34 @@ class ModifyActivity : AppCompatActivity() {
 
     private var i = intent
 
-    private var sendDbTime = 100
-    private var sendDbDate = 100L
+    private val converter = ConverterData()
 
-    val converter = ConverterData()
+
+    // нужна для заполнения Entity в fun addEntity
+    private var timeEntity: Int = 100
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = ActivityModifyBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // если интент не пустой, достаём из него данные и заполняем view
         i = intent
         if (i.getStringExtra(Constants.TITLE_KEY) != null) getIntents()
 
-        checkOnSavedInstance(savedInstanceState)
+        // устанавливаем текст у кнопки "Выбрать время заметки"
+        modifyViewModel.sendDbTime().observe(this,{
+            binding.btAddTime.text = if(it == 100) "Выбрать время заметки"
+                                     else getString(R.string.text_selection_time, it, it + 1)
+            timeEntity = it
+        })
 
+        // устанавливаем текст у кнопки "Выбрать дату заметки"
+        modifyViewModel.sendDbDate().observe(this,{
+            binding.btAddDateModify.text = it
+        })
+
+        // установление даты в тексте кнопки и запись значения даты в VM
         binding.btAddDateModify.setOnClickListener {
             val datePickerDialog = DatePickerDialog(this, { _, yearPicker, monthPicker, dayPicker ->
                 binding.btAddDateModify.text = getString(
@@ -49,51 +62,36 @@ class ModifyActivity : AppCompatActivity() {
                     monthPicker + 1,
                     yearPicker
                 )
-                sendDbDate = converter.convertString(binding.btAddDateModify.text.toString())
+                modifyViewModel.sendDbDate.value = binding.btAddDateModify.text.toString()
 
             }, Calendar().year,Calendar().month,Calendar().day)
             datePickerDialog.show()
         }
 
+        // установление времени в тексте кнопки и запись значения времени в VM
         binding.btAddTime.setOnClickListener {
             TimeDialog.showDialog(this as AppCompatActivity, object : TimeDialog.Listener {
                 override fun onClick(int: Int?) {
                     if (int != null) {
-                        binding.btAddTime.text =
-                            getString(R.string.text_selection_time, int, int + 1)
-                        sendDbTime = converter.converterTimeMillis(int)
+                        binding.btAddTime.text = getString(R.string.text_selection_time, int, int + 1)
+                        modifyViewModel.sendDbTime.value =  int
                     }
                 }
             })
         }
 
+        // проверка заполнения полей и подготовка данных к отправке в БД
         binding.btAddNoteModify.setOnClickListener {
             checkDateTime()
         }
     }
 
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        outState.putLong(Constants.DATE, sendDbDate)
-        outState.putInt(Constants.TIME, sendDbTime)
-    }
-
-    private fun checkOnSavedInstance(savedInstanceState: Bundle?) {
-        if (savedInstanceState != null) {
-            sendDbDate = savedInstanceState.getLong(Constants.DATE)
-            sendDbTime = savedInstanceState.getInt(Constants.TIME)
-            binding.btAddDateModify.text = converter.convertMillis(sendDbDate)
-            binding.btAddTime.text =
-                getString(R.string.text_selection_time, sendDbTime, sendDbTime + 1)
-        }
-    }
-
+    // проверка заполнения полей и подготовка данных к отправке в БД
     private fun checkDateTime() = with(binding) {
         if (edTitle.text.isNotEmpty() &&
             edContent.text.isNotEmpty() &&
-            sendDbTime != 100 &&
-            sendDbDate != 100L
+            binding.btAddTime.text != "Выбрать время заметки" &&
+            binding.btAddDateModify.text != "Выбрать дату заметки"
         ) {
 
             if (i.getStringExtra(Constants.TITLE_KEY) == null)
@@ -108,7 +106,8 @@ class ModifyActivity : AppCompatActivity() {
 
             if (edContent.text.isEmpty()) edContent.error = "Поле не заполнено"
 
-            if (sendDbTime == 100 || sendDbDate == 100L)
+            if (binding.btAddTime.text == "Выбрать время заметки" ||
+                timeEntity == 100)
                 Toast.makeText(
                     this@ModifyActivity, "Добавьте дату и время заметки",
                     Toast.LENGTH_LONG
@@ -116,17 +115,19 @@ class ModifyActivity : AppCompatActivity() {
         }
     }
 
+    // заполнение данными Entity для отправки в БД
     private fun addEntity(id: Int?): Entity {
         return Entity(
             id,
             binding.edTitle.text.toString(),
             binding.edContent.text.toString(),
-            sendDbDate,
-            sendDbTime,
+            converter.convertString(binding.btAddDateModify.text.toString()),
+            converter.converterTimeMillis(timeEntity),
             binding.btAddDateModify.text.toString()
         )
     }
 
+    // получение данных из Intent для заполнения полей
     private fun getIntents() {
         binding.apply {
 
@@ -140,8 +141,8 @@ class ModifyActivity : AppCompatActivity() {
             btAddTime.text = getString(R.string.text_selection_time, time, time + 1)
             btAddDateModify.text = "$date"
 
-            sendDbTime = time
-            sendDbDate = converter.convertString("$date")
+            modifyViewModel.sendDbTime.value = time
+            modifyViewModel.sendDbDate.value = date
         }
     }
 

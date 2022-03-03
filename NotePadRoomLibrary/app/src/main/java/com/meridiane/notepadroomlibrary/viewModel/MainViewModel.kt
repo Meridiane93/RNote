@@ -9,10 +9,11 @@ class MainViewModel(database: RDataBase):ViewModel() {
 
     private val dao = database.getDao()
 
+    // delete Entity
     fun deleteEntity(id:Int) = viewModelScope.launch {
         dao.deleteEntity(id)
     }
-
+    // get Entity by date
     fun getAllEntityByDate(dateString:String) : LiveData<List<Entity>> {
         return dao.getAllEntityByDate(dateString).asLiveData()
     }

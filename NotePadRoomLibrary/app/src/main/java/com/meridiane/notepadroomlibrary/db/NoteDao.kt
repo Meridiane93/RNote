@@ -8,18 +8,18 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface NoteDao {
-    @Insert
+    @Insert // insert Entity
     suspend fun insertEntity(entity: Entity)
 
     @Query("SELECT * FROM note")
     fun getAllEntity(): Flow<List<Entity>>
 
-    @Update // update NoteItem
+    @Update // update Entity
     suspend fun updateEntity(entity: Entity)
 
     @Query("DELETE FROM note WHERE id IS :id")
     suspend fun deleteEntity(id:Int)
 
-    @Query("SELECT * FROM note WHERE dateString LIKE :dateString")
+    @Query("SELECT * FROM note WHERE dateString LIKE :dateString") // get Entity by date
     fun getAllEntityByDate(dateString:String): Flow<List<Entity>>
 }

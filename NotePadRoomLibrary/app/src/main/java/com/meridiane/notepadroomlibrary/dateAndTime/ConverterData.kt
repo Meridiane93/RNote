@@ -6,6 +6,7 @@ import java.util.*
 
 class ConverterData {
 
+    // конвертируем миллисекунды в стандартный вид даты
     fun convertMillis(mil: Long): String {
         val dateLong = java.util.Calendar.getInstance()
         dateLong.timeInMillis = mil
@@ -15,6 +16,7 @@ class ConverterData {
         return "$days/${months + 1}/$years"
     }
 
+    // парсинг строки и преобразуем в миллисекунды
     fun convertString(str: String): Long {
         val simpleFormat = SimpleDateFormat("dd/MM/yyyy", Locale.US)
         val parseString = simpleFormat.parse(str)!!
