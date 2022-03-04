@@ -24,7 +24,7 @@ class MainAdapter: ListAdapter<Entity, MainAdapter.ItemHolder>(ItemComparator())
     override fun onBindViewHolder(holder: ItemHolder, position: Int) = holder.setData(getItem(position))
 
     class ItemHolder(private val view: View): RecyclerView.ViewHolder(view){
-        
+
         private val mainViewModel: MainViewModel by lazy {
             MainViewModel((view.context.applicationContext as MainApp).database)
         }

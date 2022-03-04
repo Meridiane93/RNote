@@ -13,12 +13,12 @@
         android:fullBackupContent="true">
         <activity
             android:name=".activity.ModifyActivity"
-
+            android:screenOrientation="portrait"
             android:exported="false"
             android:label="@string/title_activity_modify" />
         <activity
             android:name=".activity.MainActivity"
-
+            android:screenOrientation="portrait"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

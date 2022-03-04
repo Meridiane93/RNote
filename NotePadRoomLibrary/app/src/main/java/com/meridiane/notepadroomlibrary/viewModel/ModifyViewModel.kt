@@ -38,3 +38,13 @@ class ModifyViewModel(database: RDataBase): ViewModel() {
     }
 }
 
+class ModifyViewModelFactory(private val database: RDataBase) : ViewModelProvider.Factory {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {    // создаёт VM
+        if (modelClass.isAssignableFrom(ModifyViewModel::class.java)){
+            @Suppress("UNCHECKED_CAST")
+            return ModifyViewModel(database) as T
+        }
+        throw IllegalArgumentException("Unknown ViewModelClass")
+    }
+}
+

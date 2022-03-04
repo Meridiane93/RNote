@@ -17,4 +17,23 @@ class MainViewModel(database: RDataBase):ViewModel() {
     fun getAllEntityByDate(dateString:String) : LiveData<List<Entity>> {
         return dao.getAllEntityByDate(dateString).asLiveData()
     }
+
+    val buttonDateTextGet: MutableLiveData<String> by lazy {
+        MutableLiveData<String>("Задать дату")
+    }
+    // устанавливаем значение в тексте кнопки "Выбора даты" при повороте экрана
+    fun buttonDateTextSet(): LiveData<String> {
+        return buttonDateTextGet
+    }
+
+}
+
+class MainViewModelFactory(private val database: RDataBase) : ViewModelProvider.Factory {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {    // создаёт VM
+        if (modelClass.isAssignableFrom(MainViewModel::class.java)){
+            @Suppress("UNCHECKED_CAST")
+            return MainViewModel(database) as T
+        }
+        throw IllegalArgumentException("Unknown ViewModelClass")
+    }
 }

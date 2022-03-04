@@ -4,6 +4,7 @@ import android.app.DatePickerDialog
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import com.meridiane.notepadroomlibrary.Constants
 import com.meridiane.notepadroomlibrary.dateAndTime.TimeDialog
 import com.meridiane.notepadroomlibrary.dateAndTime.Calendar
@@ -13,21 +14,19 @@ import com.meridiane.notepadroomlibrary.databinding.ActivityModifyBinding
 import com.meridiane.notepadroomlibrary.db.Entity
 import com.meridiane.notepadroomlibrary.db.MainApp
 import com.meridiane.notepadroomlibrary.viewModel.ModifyViewModel
+import com.meridiane.notepadroomlibrary.viewModel.ModifyViewModelFactory
 import java.util.*
 
 class ModifyActivity : AppCompatActivity() {
 
-    private var _binding: ActivityModifyBinding ?= null
+    private var _binding: ActivityModifyBinding? = null
     private val binding get() = _binding!!
 
-    private val modifyViewModel: ModifyViewModel by lazy {
-        ModifyViewModel((this.applicationContext as MainApp).database)
-    }
+    private lateinit var modifyViewModel: ModifyViewModel
 
     private var i = intent
 
     private val converter = ConverterData()
-
 
     // нужна для заполнения Entity в fun addEntity
     private var timeEntity: Int = 100
@@ -37,34 +36,38 @@ class ModifyActivity : AppCompatActivity() {
         _binding = ActivityModifyBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        modifyViewModel = ViewModelProvider(
+            this,
+            ModifyViewModelFactory((this.applicationContext as MainApp).database)
+        )[ModifyViewModel::class.java]
+
         // если интент не пустой, достаём из него данные и заполняем view
         i = intent
         if (i.getStringExtra(Constants.TITLE_KEY) != null) getIntents()
 
         // устанавливаем текст у кнопки "Выбрать время заметки"
-        modifyViewModel.sendDbTime().observe(this,{
-            binding.btAddTime.text = if(it == 100) "Выбрать время заметки"
-                                     else getString(R.string.text_selection_time, it, it + 1)
+        modifyViewModel.sendDbTime().observe(this, {
+            binding.btAddTime.text = if (it == 100) "Выбрать время заметки"
+            else getString(R.string.text_selection_time, it, it + 1)
             timeEntity = it
         })
 
         // устанавливаем текст у кнопки "Выбрать дату заметки"
-        modifyViewModel.sendDbDate().observe(this,{
+        modifyViewModel.sendDbDate().observe(this, {
             binding.btAddDateModify.text = it
         })
 
         // установление даты в тексте кнопки и запись значения даты в VM
         binding.btAddDateModify.setOnClickListener {
             val datePickerDialog = DatePickerDialog(this, { _, yearPicker, monthPicker, dayPicker ->
-                binding.btAddDateModify.text = getString(
+                modifyViewModel.sendDbDate.value = getString(
                     R.string.bt_text_addDate_change,
                     dayPicker,
                     monthPicker + 1,
                     yearPicker
                 )
-                modifyViewModel.sendDbDate.value = binding.btAddDateModify.text.toString()
 
-            }, Calendar().year,Calendar().month,Calendar().day)
+            }, Calendar().year, Calendar().month, Calendar().day)
             datePickerDialog.show()
         }
 
@@ -73,13 +76,11 @@ class ModifyActivity : AppCompatActivity() {
             TimeDialog.showDialog(this as AppCompatActivity, object : TimeDialog.Listener {
                 override fun onClick(int: Int?) {
                     if (int != null) {
-                        binding.btAddTime.text = getString(R.string.text_selection_time, int, int + 1)
-                        modifyViewModel.sendDbTime.value =  int
+                        modifyViewModel.sendDbTime.value = int
                     }
                 }
             })
         }
-
         // проверка заполнения полей и подготовка данных к отправке в БД
         binding.btAddNoteModify.setOnClickListener {
             checkDateTime()
@@ -107,10 +108,10 @@ class ModifyActivity : AppCompatActivity() {
             if (edContent.text.isEmpty()) edContent.error = "Поле не заполнено"
 
             if (binding.btAddTime.text == "Выбрать время заметки" ||
-                timeEntity == 100)
+                timeEntity == 100
+            )
                 Toast.makeText(
-                    this@ModifyActivity, "Добавьте дату и время заметки",
-                    Toast.LENGTH_LONG
+                    this@ModifyActivity, "Добавьте дату и время заметки", Toast.LENGTH_LONG
                 ).show()
         }
     }
