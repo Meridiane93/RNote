@@ -1,8 +1,15 @@
-package com.meridiane.notepadroomlibrary.viewModel
+/**
+ * class MainViewModel используется для сохранения интерфейса, а так же вызова методов Dao
+ *  и редактирования отображения
+ *
+ * class MainViewModelFactory используется для инициализации MainViewModel, можно добавить use case
+ */
+
+package com.meridiane.notepadroomlibrary.domain.viewModel
 
 import androidx.lifecycle.*
-import com.meridiane.notepadroomlibrary.db.Entity
-import com.meridiane.notepadroomlibrary.db.RDataBase
+import com.meridiane.notepadroomlibrary.data.Entity
+import com.meridiane.notepadroomlibrary.data.RDataBase
 import kotlinx.coroutines.launch
 
 class MainViewModel(database: RDataBase):ViewModel() {
@@ -25,7 +32,6 @@ class MainViewModel(database: RDataBase):ViewModel() {
     fun buttonDateTextSet(): LiveData<String> {
         return buttonDateTextGet
     }
-
 }
 
 class MainViewModelFactory(private val database: RDataBase) : ViewModelProvider.Factory {

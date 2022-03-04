@@ -9,11 +9,11 @@
 
     <Button
         android:id="@+id/btAddDateModify"
-        android:layout_width="0dp"
+        android:layout_width="@dimen/no_indent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginStart="@dimen/margin_small"
+        android:layout_marginTop="@dimen/margin_small"
+        android:layout_marginEnd="@dimen/margin_small"
         android:text="@string/bt_text_addDate_modify"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,9 +21,9 @@
 
     <Button
         android:id="@+id/btAddTime"
-        android:layout_width="0dp"
+        android:layout_width="@dimen/no_indent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="@dimen/margin_small"
         android:text="@string/bt_text_addTime_modify"
         app:layout_constraintEnd_toEndOf="@+id/btAddDateModify"
         app:layout_constraintStart_toStartOf="@+id/btAddDateModify"
@@ -31,7 +31,7 @@
 
     <EditText
         android:id="@+id/edTitle"
-        android:layout_width="0dp"
+        android:layout_width="@dimen/no_indent"
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="@string/title_text"
@@ -45,10 +45,10 @@
 
     <EditText
         android:id="@+id/edContent"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_width="@dimen/no_indent"
+        android:layout_height="@dimen/no_indent"
+        android:layout_marginTop="@dimen/margin_small"
+        android:layout_marginBottom="@dimen/margin_small"
         android:ems="10"
         android:gravity="top"
         android:hint="@string/content_text"
@@ -63,9 +63,9 @@
 
     <Button
         android:id="@+id/btAddNoteModify"
-        android:layout_width="0dp"
+        android:layout_width="@dimen/no_indent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="@dimen/margin_small"
         android:text="@string/bt_text_addNote"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/btAddDateModify"

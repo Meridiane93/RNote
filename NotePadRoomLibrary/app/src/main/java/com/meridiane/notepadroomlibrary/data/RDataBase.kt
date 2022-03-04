@@ -1,4 +1,10 @@
-package com.meridiane.notepadroomlibrary.db
+/**
+ * abstract class RDataBase используется для создания базы данных
+ *
+ * добавление используемых таблиц, версии, имени БД
+ */
+
+package com.meridiane.notepadroomlibrary.data
 
 import android.content.Context
 import androidx.room.Database

@@ -1,6 +1,6 @@
 package com.meridiane.notepadroomlibrary
 
-import com.meridiane.notepadroomlibrary.dateAndTime.ConverterData
+import com.meridiane.notepadroomlibrary.domain.viewModel.dateAndTime.ConverterData
 import org.junit.Test
 
 import org.junit.Assert.*

@@ -1,4 +1,8 @@
-package com.meridiane.notepadroomlibrary.adapter
+/**
+ * class MainAdapter используется для создания списка Заметок
+ */
+
+package com.meridiane.notepadroomlibrary.presentation.adapter
 
 import android.content.Intent
 import android.view.LayoutInflater
@@ -9,13 +13,13 @@ import androidx.recyclerview.widget.ListAdapter
 
 import androidx.recyclerview.widget.RecyclerView
 import com.meridiane.notepadroomlibrary.Constants
-import com.meridiane.notepadroomlibrary.dateAndTime.ConverterData
+import com.meridiane.notepadroomlibrary.domain.viewModel.dateAndTime.ConverterData
 import com.meridiane.notepadroomlibrary.R
-import com.meridiane.notepadroomlibrary.activity.ModifyActivity
+import com.meridiane.notepadroomlibrary.presentation.activity.ModifyActivity
 import com.meridiane.notepadroomlibrary.databinding.ListItemBinding
-import com.meridiane.notepadroomlibrary.db.Entity
-import com.meridiane.notepadroomlibrary.db.MainApp
-import com.meridiane.notepadroomlibrary.viewModel.MainViewModel
+import com.meridiane.notepadroomlibrary.data.Entity
+import com.meridiane.notepadroomlibrary.data.MainApp
+import com.meridiane.notepadroomlibrary.domain.viewModel.MainViewModel
 
 class MainAdapter: ListAdapter<Entity, MainAdapter.ItemHolder>(ItemComparator()) {
 

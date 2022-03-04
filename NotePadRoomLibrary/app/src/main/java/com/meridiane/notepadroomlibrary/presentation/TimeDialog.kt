@@ -1,4 +1,8 @@
-package com.meridiane.notepadroomlibrary.dateAndTime
+/**
+ * object TimeDialog - используется для выбора времени заметки
+ */
+
+package com.meridiane.notepadroomlibrary.presentation
 
 import android.app.AlertDialog
 import android.content.Context

@@ -3,7 +3,7 @@
     package="com.meridiane.notepadroomlibrary">
 
     <application
-        android:name=".db.MainApp"
+        android:name=".data.MainApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -12,12 +12,12 @@
         android:theme="@style/Theme.NotePadRoomLibrary"
         android:fullBackupContent="true">
         <activity
-            android:name=".activity.ModifyActivity"
+            android:name="com.meridiane.notepadroomlibrary.presentation.activity.ModifyActivity"
             android:screenOrientation="portrait"
             android:exported="false"
             android:label="@string/title_activity_modify" />
         <activity
-            android:name=".activity.MainActivity"
+            android:name="com.meridiane.notepadroomlibrary.presentation.activity.MainActivity"
             android:screenOrientation="portrait"
             android:exported="true">
             <intent-filter>

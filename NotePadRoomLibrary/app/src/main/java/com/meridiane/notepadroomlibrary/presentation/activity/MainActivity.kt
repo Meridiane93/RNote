@@ -1,4 +1,9 @@
-package com.meridiane.notepadroomlibrary.activity
+/**
+ * class MainActivity используется для отображения списка заметок
+ *
+ */
+
+package com.meridiane.notepadroomlibrary.presentation.activity
 
 import android.app.DatePickerDialog
 import android.content.Intent
@@ -6,13 +11,13 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.meridiane.notepadroomlibrary.dateAndTime.Calendar
+import com.meridiane.notepadroomlibrary.domain.viewModel.dateAndTime.Calendar
 import com.meridiane.notepadroomlibrary.R
-import com.meridiane.notepadroomlibrary.adapter.MainAdapter
+import com.meridiane.notepadroomlibrary.presentation.adapter.MainAdapter
 import com.meridiane.notepadroomlibrary.databinding.ActivityMainBinding
-import com.meridiane.notepadroomlibrary.db.MainApp
-import com.meridiane.notepadroomlibrary.viewModel.MainViewModel
-import com.meridiane.notepadroomlibrary.viewModel.MainViewModelFactory
+import com.meridiane.notepadroomlibrary.data.MainApp
+import com.meridiane.notepadroomlibrary.domain.viewModel.MainViewModel
+import com.meridiane.notepadroomlibrary.domain.viewModel.MainViewModelFactory
 import java.util.*
 
 
@@ -32,16 +37,20 @@ class MainActivity : AppCompatActivity() {
 
         initRcView()
 
+        // инициализация VM
         mainViewModel = ViewModelProvider(this,
             MainViewModelFactory((this.applicationContext as MainApp).database))[MainViewModel::class.java]
 
+        // используется для фильтрации заметок по дате
         mainViewModel.buttonDateTextSet().observe(this,{
+
             binding.btAddDate.text = it
             observerAdapter()
         })
 
         // устанавливаем значение даты, для отображения списка с указанной датой
         binding.btAddDate.setOnClickListener {
+
             val datePickerDialog = DatePickerDialog(this, { _, yearPicker, monthPicker, dayPicker ->
                 mainViewModel.buttonDateTextGet.value =
                     getString(R.string.bt_text_addDate_change,dayPicker,monthPicker+1,yearPicker)
@@ -53,12 +62,14 @@ class MainActivity : AppCompatActivity() {
 
         // запуск второй активити
         binding.btAddNote.setOnClickListener {
+
             val intent = Intent(this,ModifyActivity::class.java)
             startActivity(intent)
         }
 
-        // сбрасываем фильтр и отображаем все данные списка
+        // сбрасываем фильтр и отображаем все заметки
         binding.btAllNote.setOnClickListener {
+
             mainViewModel.buttonDateTextGet.value = "Задать дату"
             observerAdapter()
         }
@@ -83,7 +94,9 @@ class MainActivity : AppCompatActivity() {
             })
     }
 
+    // зануляем биндинг
     override fun onDestroy() {
+
         super.onDestroy()
         _binding = null
     }

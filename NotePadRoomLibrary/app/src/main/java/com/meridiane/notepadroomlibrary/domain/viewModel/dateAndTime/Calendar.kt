@@ -1,4 +1,8 @@
-package com.meridiane.notepadroomlibrary.dateAndTime
+/**
+ * class Calendar используется для получения текущей даты
+ */
+
+package com.meridiane.notepadroomlibrary.domain.viewModel.dateAndTime
 
 import java.util.Calendar
 

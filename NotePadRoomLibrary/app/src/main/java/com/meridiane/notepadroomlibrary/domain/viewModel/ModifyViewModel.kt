@@ -1,15 +1,22 @@
-package com.meridiane.notepadroomlibrary.viewModel
+/**
+ * class ModifyViewModel  используется для сохранения интерфейса, а так же вызова методов Dao
+ *  и редактирования отображения
+ *
+ *  class ModifyViewModelFactory инициализирует ModifyViewModel
+ */
+
+package com.meridiane.notepadroomlibrary.domain.viewModel
 
 import androidx.lifecycle.*
-import com.meridiane.notepadroomlibrary.db.Entity
-import com.meridiane.notepadroomlibrary.db.RDataBase
+import com.meridiane.notepadroomlibrary.data.Entity
+import com.meridiane.notepadroomlibrary.data.RDataBase
 import kotlinx.coroutines.launch
 
 class ModifyViewModel(database: RDataBase): ViewModel() {
 
     private val dao = database.getDao()
 
-    // запись жанных в БД
+    // запись данных в БД
     fun insertEntity(entity:Entity) = viewModelScope.launch{
         dao.insertEntity(entity)
     }

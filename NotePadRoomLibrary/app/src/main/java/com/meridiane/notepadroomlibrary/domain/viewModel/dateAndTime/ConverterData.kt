@@ -1,5 +1,8 @@
-package com.meridiane.notepadroomlibrary.dateAndTime
+/**
+ * class ConverterData используется для конвертации данных в БД и обратно
+ */
 
+package com.meridiane.notepadroomlibrary.domain.viewModel.dateAndTime
 
 import java.text.SimpleDateFormat
 import java.util.*

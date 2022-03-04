@@ -1,4 +1,9 @@
-package com.meridiane.notepadroomlibrary.db
+/**
+ * interface NoteDao - используется для добавления, редактирования,
+ * обновления и удаления данных из БД
+ */
+
+package com.meridiane.notepadroomlibrary.data
 
 import androidx.room.Dao
 import androidx.room.Insert
@@ -10,9 +15,6 @@ import kotlinx.coroutines.flow.Flow
 interface NoteDao {
     @Insert // insert Entity
     suspend fun insertEntity(entity: Entity)
-
-    @Query("SELECT * FROM note")
-    fun getAllEntity(): Flow<List<Entity>>
 
     @Update // update Entity
     suspend fun updateEntity(entity: Entity)

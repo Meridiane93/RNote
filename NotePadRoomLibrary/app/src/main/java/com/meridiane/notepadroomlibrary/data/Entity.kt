@@ -1,4 +1,8 @@
-package com.meridiane.notepadroomlibrary.db
+/**
+ * data class Entity используется для создания сущности (таблицы) БД
+ */
+
+package com.meridiane.notepadroomlibrary.data
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
@@ -16,10 +20,10 @@ data class Entity(
     @ColumnInfo(name = "content")
     val content: String,
 
-    @ColumnInfo(name = "dateTimeStart")
+    @ColumnInfo(name = "date")
     val date: Long,
 
-    @ColumnInfo(name = "dateTimeEnd")
+    @ColumnInfo(name = "time")
     val time: Int,
 
     @ColumnInfo(name = "dateString")

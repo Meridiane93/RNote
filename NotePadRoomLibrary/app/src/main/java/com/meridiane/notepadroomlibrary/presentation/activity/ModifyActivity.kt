@@ -1,4 +1,8 @@
-package com.meridiane.notepadroomlibrary.activity
+/**
+ * class ModifyActivity используется для создания и редактирования заметок
+ */
+
+package com.meridiane.notepadroomlibrary.presentation.activity
 
 import android.app.DatePickerDialog
 import android.os.Bundle
@@ -6,15 +10,15 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.meridiane.notepadroomlibrary.Constants
-import com.meridiane.notepadroomlibrary.dateAndTime.TimeDialog
-import com.meridiane.notepadroomlibrary.dateAndTime.Calendar
-import com.meridiane.notepadroomlibrary.dateAndTime.ConverterData
+import com.meridiane.notepadroomlibrary.presentation.TimeDialog
+import com.meridiane.notepadroomlibrary.domain.viewModel.dateAndTime.Calendar
+import com.meridiane.notepadroomlibrary.domain.viewModel.dateAndTime.ConverterData
 import com.meridiane.notepadroomlibrary.R
 import com.meridiane.notepadroomlibrary.databinding.ActivityModifyBinding
-import com.meridiane.notepadroomlibrary.db.Entity
-import com.meridiane.notepadroomlibrary.db.MainApp
-import com.meridiane.notepadroomlibrary.viewModel.ModifyViewModel
-import com.meridiane.notepadroomlibrary.viewModel.ModifyViewModelFactory
+import com.meridiane.notepadroomlibrary.data.Entity
+import com.meridiane.notepadroomlibrary.data.MainApp
+import com.meridiane.notepadroomlibrary.domain.viewModel.ModifyViewModel
+import com.meridiane.notepadroomlibrary.domain.viewModel.ModifyViewModelFactory
 import java.util.*
 
 class ModifyActivity : AppCompatActivity() {
@@ -24,20 +28,19 @@ class ModifyActivity : AppCompatActivity() {
 
     private lateinit var modifyViewModel: ModifyViewModel
 
-    private var i = intent
-
     private val converter = ConverterData()
 
-    // нужна для заполнения Entity в fun addEntity
-    private var timeEntity: Int = 100
+    private var i = intent // используется для редактирования заметок
+
+    private var timeEntity: Int = 100 // используется для заполнения Entity в fun addEntity
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = ActivityModifyBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        modifyViewModel = ViewModelProvider(
-            this,
+        // инициализация VM
+        modifyViewModel = ViewModelProvider(this,
             ModifyViewModelFactory((this.applicationContext as MainApp).database)
         )[ModifyViewModel::class.java]
 
@@ -45,20 +48,23 @@ class ModifyActivity : AppCompatActivity() {
         i = intent
         if (i.getStringExtra(Constants.TITLE_KEY) != null) getIntents()
 
-        // устанавливаем текст у кнопки "Выбрать время заметки"
+        // устанавливает текст у кнопки "Выбрать время заметки"
         modifyViewModel.sendDbTime().observe(this, {
+
             binding.btAddTime.text = if (it == 100) "Выбрать время заметки"
             else getString(R.string.text_selection_time, it, it + 1)
             timeEntity = it
         })
 
-        // устанавливаем текст у кнопки "Выбрать дату заметки"
+        // устанавливает текст у кнопки "Выбрать дату заметки"
         modifyViewModel.sendDbDate().observe(this, {
+
             binding.btAddDateModify.text = it
         })
 
         // установление даты в тексте кнопки и запись значения даты в VM
         binding.btAddDateModify.setOnClickListener {
+
             val datePickerDialog = DatePickerDialog(this, { _, yearPicker, monthPicker, dayPicker ->
                 modifyViewModel.sendDbDate.value = getString(
                     R.string.bt_text_addDate_change,
